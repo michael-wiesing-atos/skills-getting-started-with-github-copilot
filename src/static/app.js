@@ -62,7 +62,29 @@ document.addEventListener("DOMContentLoaded", () => {
         ul.className = "participants-list";
         a.participants.forEach((p) => {
           const li = document.createElement("li");
-          li.textContent = p;
+          const participantSpan = document.createElement("span");
+          participantSpan.textContent = p;
+          
+          const deleteBtn = document.createElement("span");
+          deleteBtn.className = "delete-participant";
+          deleteBtn.title = "Teilnehmer abmelden";
+          deleteBtn.addEventListener("click", async () => {
+            try {
+              const url = `/activities/${encodeURIComponent(name)}/unregister?email=${encodeURIComponent(p)}`;
+              const res = await fetch(url, { method: "POST" });
+              const data = await res.json();
+              if (!res.ok) {
+                throw new Error(data.detail || "Abmeldung fehlgeschlagen");
+              }
+              showMessage("Teilnehmer erfolgreich abgemeldet!", "success");
+              await fetchActivities();
+            } catch (err) {
+              showMessage(err.message, "error");
+            }
+          });
+
+          li.appendChild(participantSpan);
+          li.appendChild(deleteBtn);
           ul.appendChild(li);
         });
         participantsSection.appendChild(ul);

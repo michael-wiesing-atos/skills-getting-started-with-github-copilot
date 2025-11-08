@@ -157,9 +157,9 @@ footer {
 }
 
 .participants-list {
-  list-style: disc;
-  margin-left: 18px;
-  padding-left: 6px;
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
   display: block;
 }
 
@@ -172,6 +172,28 @@ footer {
   color: #222;
   font-size: 0.95rem;
   box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-participant {
+  cursor: pointer;
+  color: #ef5350;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  line-height: 1;
+}
+
+.delete-participant:hover {
+  background-color: rgba(239, 83, 80, 0.1);
+}
+
+.delete-participant::after {
+  content: "×";
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 /* Kleine Hilfsklasse für leere Teilnehmerliste */
